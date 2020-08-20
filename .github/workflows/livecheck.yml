@@ -13,8 +13,11 @@ on:
         default: 'yes'
 
   schedule:
+    # Every 6 hours
+    - cron: '0 */6 * * *'
+
     # Once every 24 hours
-    - cron: '0 */24 * * *'
+    #- cron: '0 */24 * * *'
 
   #push:
     #branches: [master]
