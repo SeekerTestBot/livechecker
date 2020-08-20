@@ -11,9 +11,11 @@ on:
         default: 'yes'
       bio:
         default: 'yes'
+
   schedule:
     # Once every 24 hours
     - cron: '0 */24 * * *'
+
   #push:
     #branches: [master]
 
@@ -44,7 +46,6 @@ jobs:
     runs-on: macos-latest
     steps:
       - run: brew update-reset
-
       - uses: actions/checkout@main
         with:
           repository: SeekingMeaning/homebrew-cask-livecheck
@@ -53,7 +54,6 @@ jobs:
         run: |
           mkdir -p "$(dirname $(brew --repo SeekingMeaning/cask-livecheck))"
           ln -s "$GITHUB_WORKSPACE/cask-livecheck" "$(brew --repo SeekingMeaning/cask-livecheck)"
-
       - run: brew cask-livecheck --newer-only --quiet --tap homebrew/cask > cask.txt || true
       - run: cat cask.txt
       - run: echo >> cask.txt
@@ -107,6 +107,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: Logs
+
       - if: github.event.inputs.core == 'yes'
         uses: popsiclestick/gist-sync-action@v1.0.0
         with:
@@ -114,6 +115,7 @@ jobs:
           gist_url: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
           gist_title: homebrew-core.txt
           github_file: core.txt
+
       - if: github.event.inputs.cask == 'yes'
         uses: popsiclestick/gist-sync-action@v1.0.0
         with:
@@ -121,6 +123,7 @@ jobs:
           gist_url: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
           gist_title: homebrew-cask.txt
           github_file: cask.txt
+
       - if: github.event.inputs.linux == 'yes'
         uses: popsiclestick/gist-sync-action@v1.0.0
         with:
@@ -128,6 +131,7 @@ jobs:
           gist_url: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
           gist_title: linuxbrew-core.txt
           github_file: linux.txt
+
       - if: github.event.inputs.bio == 'yes'
         uses: popsiclestick/gist-sync-action@v1.0.0
         with:
