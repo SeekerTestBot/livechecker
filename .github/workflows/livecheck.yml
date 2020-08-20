@@ -92,6 +92,7 @@ jobs:
           path: bio.txt
 
   gists:
+    if: always()
     needs:
       - core
       - cask
