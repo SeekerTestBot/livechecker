@@ -70,18 +70,18 @@ jobs:
       - uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekingMeaning/751c6d69a02afa16211a093a3dc79588
-          gist_title: homebrew-core-livecheck.txt
+          gist_url: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
+          gist_title: homebrew-core.txt
           github_file: core.txt
       - uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekingMeaning/52672141a2edbdab3c9a360bd939cc15
-          gist_title: linuxbrew-core-livecheck.txt
+          gist_url: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
+          gist_title: linuxbrew-core.txt
           github_file: linux.txt
       - uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekingMeaning/5f0449f4f267b89299632498f8c30b89
-          gist_title: homebrew-bio-livecheck.txt
+          gist_url: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
+          gist_title: brewsci-bio.txt
           github_file: bio.txt
