@@ -2,12 +2,9 @@ name: Run livecheck
 
 on:
   workflow_dispatch:
-  push:
-    branches: [master]
-# on:
-#   schedule:
-#     # Once every 24 hours
-#     - cron: '0 */24 * * *'
+  schedule:
+    # Once every 24 hours
+    - cron: '0 */24 * * *'
 
 jobs:
   livecheck:
@@ -20,8 +17,7 @@ jobs:
       HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
       - run: brew tap homebrew/livecheck
-      # - run: brew livecheck --newer-only --quiet --tap homebrew/core
-      - run: brew livecheck ruby > livecheck.txt
+      - run: brew livecheck --newer-only --quiet --tap homebrew/core > livecheck.txt
       - uses: actions/upload-artifact@v2
         with:
           name: livecheck.txt
