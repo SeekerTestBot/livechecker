@@ -46,14 +46,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - run: brew update-reset
-      - uses: actions/checkout@main
-        with:
-          repository: SeekingMeaning/homebrew-cask-livecheck
-          path: cask-livecheck
-      - name: Run brew tap SeekingMeaning/cask-livecheck
-        run: |
-          mkdir -p "$(dirname $(brew --repo SeekingMeaning/cask-livecheck))"
-          ln -s "$GITHUB_WORKSPACE/cask-livecheck" "$(brew --repo SeekingMeaning/cask-livecheck)"
+      - run: brew tap SeekingMeaning/cask-livecheck
       - run: brew cask-livecheck --newer-only --quiet --tap homebrew/cask > cask.txt || true
       - run: cat cask.txt
       - run: echo >> cask.txt
