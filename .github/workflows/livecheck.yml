@@ -4,16 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       core:
-        required: true
         default: true
       cask:
-        required: true
         default: true
       linux:
-        required: true
         default: true
       bio:
-        required: true
         default: true
   schedule:
     # Once every 24 hours
