@@ -22,6 +22,7 @@ jobs:
       - run: brew update-reset
       - run: brew tap homebrew/livecheck
       - run: brew livecheck --newer-only --quiet --tap homebrew/core > core.txt || true
+      - run: cat core.txt
       - uses: actions/upload-artifact@v2
         with:
           name: Logs
@@ -35,6 +36,7 @@ jobs:
       - run: brew update-reset
       - run: brew tap homebrew/livecheck
       - run: brew livecheck --newer-only --quiet --tap homebrew/core > linux.txt || true
+      - run: cat linux.txt
       - uses: actions/upload-artifact@v2
         with:
           name: Logs
@@ -49,6 +51,7 @@ jobs:
       - run: brew tap homebrew/livecheck
       - run: brew tap brewsci/bio
       - run: brew livecheck --newer-only --quiet --tap brewsci/bio > bio.txt || true
+      - run: cat bio.txt
       - uses: actions/upload-artifact@v2
         with:
           name: Logs
