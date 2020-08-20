@@ -19,8 +19,10 @@ jobs:
       HOMEBREW_NO_ANALYTICS: 1
       HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
-      - name: Run livecheck
-        run: |
-          brew tap homebrew/livecheck
-          # brew livecheck --newer-only --quiet --tap homebrew/core
-          brew livecheck ruby
+      - run: brew tap homebrew/livecheck
+      # - run: brew livecheck --newer-only --quiet --tap homebrew/core
+      - run: brew livecheck ruby > livecheck.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: livecheck.txt
+          path: livecheck.txt
