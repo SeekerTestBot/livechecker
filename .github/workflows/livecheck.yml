@@ -5,20 +5,31 @@ on:
   schedule:
     # Once every 24 hours
     - cron: '0 */24 * * *'
+#   push:
+#     branches: [master]
 
+env:
+  HOMEBREW_NO_COLOR: 1
+  HOMEBREW_NO_ANALYTICS: 1
+  HOMEBREW_NO_AUTO_UPDATE: 1
 jobs:
-  livecheck:
+  core:
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
-    env:
-      HOMEBREW_NO_COLOR: 1
-      HOMEBREW_NO_ANALYTICS: 1
-      HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
       - run: brew tap homebrew/livecheck
-      - run: brew livecheck --newer-only --quiet --tap homebrew/core > livecheck.txt
-      - uses: actions/upload-artifact@v2
-        with:
-          name: livecheck.txt
-          path: livecheck.txt
+      - run: brew livecheck --newer-only --quiet --tap homebrew/core
+#       - run: brew livecheck --newer-only --quiet --tap homebrew/core > livecheck.txt
+#       - uses: actions/upload-artifact@v2
+#         with:
+#           name: livecheck.txt
+#           path: livecheck.txt
+  bio:
+    runs-on: ubuntu-latest
+    container:
+      image: homebrew/ubuntu16.04:master
+    steps:
+      - run: brew tap homebrew/livecheck
+      - run: brew tap brewsci/bio
+      - run: brew livecheck --newer-only --quiet --tap brewsci/bio
