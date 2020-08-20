@@ -16,11 +16,8 @@ on:
     # Every 6 hours
     - cron: '0 */6 * * *'
 
-    # Once every 24 hours
-    #- cron: '0 */24 * * *'
-
   #push:
-    #branches: [master]
+  #  branches: [master]
 
 env:
   HOMEBREW_NO_COLOR: 1
