@@ -4,18 +4,18 @@ on:
   workflow_dispatch:
     inputs:
       core:
-        default: true
+        default: 'true'
       cask:
-        default: true
+        default: 'true'
       linux:
-        default: true
+        default: 'true'
       bio:
-        default: true
+        default: 'true'
   schedule:
     # Once every 24 hours
     - cron: '0 */24 * * *'
-#   push:
-#     branches: [master]
+  #push:
+    #branches: [master]
 
 env:
   HOMEBREW_NO_COLOR: 1
@@ -26,6 +26,7 @@ env:
 jobs:
 
   core:
+    if: github.event.inputs.core == 'true'
     runs-on: macos-latest
     steps:
       - run: brew update-reset
@@ -38,6 +39,7 @@ jobs:
           path: core.txt
 
   cask:
+    if: github.event.inputs.cask == 'true'
     runs-on: macos-latest
     steps:
       - run: brew update-reset
@@ -59,6 +61,7 @@ jobs:
           path: cask.txt
 
   linux:
+    if: github.event.inputs.linux == 'true'
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
@@ -73,6 +76,7 @@ jobs:
           path: linux.txt
 
   bio:
+    if: github.event.inputs.bio == 'true'
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
@@ -98,25 +102,29 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: Logs
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - if: github.event.inputs.core == 'true'
+        uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gist_url: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
           gist_title: homebrew-core.txt
           github_file: core.txt
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - if: github.event.inputs.cask == 'true'
+        uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gist_url: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
           gist_title: homebrew-cask.txt
           github_file: cask.txt
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - if: github.event.inputs.linux == 'true'
+        uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gist_url: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
           gist_title: linuxbrew-core.txt
           github_file: linux.txt
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - if: github.event.inputs.bio == 'true'
+        uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gist_url: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
