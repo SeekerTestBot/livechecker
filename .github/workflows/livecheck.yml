@@ -12,12 +12,13 @@ env:
   HOMEBREW_NO_COLOR: 1
   HOMEBREW_NO_ANALYTICS: 1
   HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_INSTALL_CLEANUP: 1
+
 jobs:
   core:
-    runs-on: ubuntu-latest
-    container:
-      image: homebrew/ubuntu16.04:master
+    runs-on: macos-latest
     steps:
+      - run: brew update-reset
       - run: brew tap homebrew/livecheck
       - run: brew livecheck --newer-only --quiet --tap homebrew/core > core.txt || true
       - uses: actions/upload-artifact@v2
@@ -29,6 +30,7 @@ jobs:
     container:
       image: homebrew/ubuntu16.04:master
     steps:
+      - run: brew update-reset
       - run: brew tap homebrew/livecheck
       - run: brew tap brewsci/bio
       - run: brew livecheck --newer-only --quiet --tap brewsci/bio > bio.txt || true
