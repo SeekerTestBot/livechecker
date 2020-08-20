@@ -3,14 +3,14 @@ name: Run livecheck
 on:
   workflow_dispatch:
     inputs:
-      core:
-        default: 'yes'
-      cask:
-        default: 'yes'
-      linux:
-        default: 'yes'
-      bio:
-        default: 'yes'
+      skip_core:
+        default: false
+      skip_cask:
+        default: false
+      skip_linux:
+        default: false
+      skip_bio:
+        default: false
 
   schedule:
     # Every 6 hours
@@ -31,7 +31,7 @@ env:
 jobs:
 
   core:
-    if: github.event.inputs.core == 'yes'
+    if: ${{ !github.event.inputs.skip_core }}
     runs-on: macos-latest
     steps:
       - run: brew update-reset
@@ -45,7 +45,7 @@ jobs:
           path: core.txt
 
   cask:
-    if: github.event.inputs.cask == 'yes'
+    if: ${{ !github.event.inputs.skip_cask }}
     runs-on: macos-latest
     steps:
       - run: brew update-reset
@@ -66,7 +66,7 @@ jobs:
           path: cask.txt
 
   linux:
-    if: github.event.inputs.linux == 'yes'
+    if: ${{ !github.event.inputs.skip_linux }}
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
@@ -82,7 +82,7 @@ jobs:
           path: linux.txt
 
   bio:
-    if: github.event.inputs.bio == 'yes'
+    if: ${{ !github.event.inputs.skip_bio }}
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
@@ -111,7 +111,7 @@ jobs:
         with:
           name: Logs
 
-      - if: github.event.inputs.core == 'yes'
+      - if: ${{ !github.event.inputs.skip_core }}
         uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -119,7 +119,7 @@ jobs:
           gist_title: homebrew-core.txt
           github_file: core.txt
 
-      - if: github.event.inputs.cask == 'yes'
+      - if: ${{ !github.event.inputs.skip_cask }}
         uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -127,7 +127,7 @@ jobs:
           gist_title: homebrew-cask.txt
           github_file: cask.txt
 
-      - if: github.event.inputs.linux == 'yes'
+      - if: ${{ !github.event.inputs.skip_linux }}
         uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
@@ -135,7 +135,7 @@ jobs:
           gist_title: linuxbrew-core.txt
           github_file: linux.txt
 
-      - if: github.event.inputs.bio == 'yes'
+      - if: ${{ !github.event.inputs.skip_bio }}
         uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
