@@ -19,12 +19,11 @@ jobs:
       image: homebrew/ubuntu16.04:master
     steps:
       - run: brew tap homebrew/livecheck
-      - run: brew livecheck --newer-only --quiet --tap homebrew/core
-#       - run: brew livecheck --newer-only --quiet --tap homebrew/core > livecheck.txt
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: livecheck.txt
-#           path: livecheck.txt
+      - run: brew livecheck --newer-only --quiet --tap homebrew/core > core.txt || true
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Logs
+          path: core.txt
   bio:
     runs-on: ubuntu-latest
     container:
@@ -32,4 +31,8 @@ jobs:
     steps:
       - run: brew tap homebrew/livecheck
       - run: brew tap brewsci/bio
-      - run: brew livecheck --newer-only --quiet --tap brewsci/bio
+      - run: brew livecheck --newer-only --quiet --tap brewsci/bio > bio.txt || true
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Logs
+          path: bio.txt
