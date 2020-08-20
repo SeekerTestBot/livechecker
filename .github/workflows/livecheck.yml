@@ -25,6 +25,32 @@ jobs:
         with:
           name: Logs
           path: core.txt
+      - uses: popsiclestick/gist-sync-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gist_url: https://gist.github.com/SeekingMeaning/751c6d69a02afa16211a093a3dc79588
+          gist_title: homebrew-core-livecheck.txt
+          github_file: core.txt
+
+  linux:
+    runs-on: ubuntu-latest
+    container:
+      image: homebrew/ubuntu16.04:master
+    steps:
+      - run: brew update-reset
+      - run: brew tap homebrew/livecheck
+      - run: brew livecheck --newer-only --quiet --tap homebrew/core > linux.txt || true
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Logs
+          path: linux.txt
+      - uses: popsiclestick/gist-sync-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gist_url: https://gist.github.com/SeekingMeaning/52672141a2edbdab3c9a360bd939cc15
+          gist_title: linuxbrew-core-livecheck.txt
+          github_file: linux.txt
+
   bio:
     runs-on: ubuntu-latest
     container:
@@ -38,3 +64,9 @@ jobs:
         with:
           name: Logs
           path: bio.txt
+      - uses: popsiclestick/gist-sync-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gist_url: https://gist.github.com/SeekingMeaning/5f0449f4f267b89299632498f8c30b89
+          gist_title: homebrew-bio-livecheck.txt
+          github_file: bio.txt
