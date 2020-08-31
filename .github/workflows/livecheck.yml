@@ -32,7 +32,6 @@ jobs:
     runs-on: macos-latest
     steps:
       - run: brew update-reset
-      - run: brew tap homebrew/livecheck
       - run: brew livecheck --newer-only --quiet --tap homebrew/core > core.txt || true
       - run: cat core.txt
       - run: echo >> core.txt
@@ -62,7 +61,6 @@ jobs:
       image: homebrew/ubuntu16.04:master
     steps:
       - run: brew update-reset
-      - run: brew tap homebrew/livecheck
       - run: brew livecheck --newer-only --quiet --tap homebrew/core > linux.txt || true
       - run: cat linux.txt
       - run: echo >> linux.txt
@@ -78,7 +76,6 @@ jobs:
       image: homebrew/ubuntu16.04:master
     steps:
       - run: brew update-reset
-      - run: brew tap homebrew/livecheck
       - run: brew tap brewsci/bio
       - run: brew livecheck --newer-only --quiet --tap brewsci/bio > bio.txt || true
       - run: cat bio.txt
