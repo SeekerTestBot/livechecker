@@ -27,7 +27,7 @@ env:
 
 jobs:
 
-  core:
+  check-core:
     if: ${{ !github.event.inputs.skip_core }}
     runs-on: macos-latest
     steps:
@@ -37,10 +37,10 @@ jobs:
       - run: echo >> core.txt
       - uses: actions/upload-artifact@v2
         with:
-          name: Logs
+          name: core
           path: core.txt
 
-  cask:
+  check-cask:
     if: ${{ !github.event.inputs.skip_cask }}
     runs-on: macos-latest
     steps:
@@ -51,10 +51,10 @@ jobs:
       - run: echo >> cask.txt
       - uses: actions/upload-artifact@v2
         with:
-          name: Logs
+          name: cask
           path: cask.txt
 
-  linux:
+  check-linux:
     if: ${{ !github.event.inputs.skip_linux }}
     runs-on: ubuntu-latest
     container:
@@ -66,10 +66,10 @@ jobs:
       - run: echo >> linux.txt
       - uses: actions/upload-artifact@v2
         with:
-          name: Logs
+          name: linux
           path: linux.txt
 
-  bio:
+  check-bio:
     if: ${{ !github.event.inputs.skip_bio }}
     runs-on: ubuntu-latest
     container:
@@ -82,48 +82,59 @@ jobs:
       - run: echo >> bio.txt
       - uses: actions/upload-artifact@v2
         with:
-          name: Logs
+          name: bio
           path: bio.txt
 
-  gists:
-    if: always()
-    needs:
-      - core
-      - cask
-      - linux
-      - bio
+  gist-core:
+    needs: check-core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: Logs
-
-      - if: ${{ !github.event.inputs.skip_core }}
-        uses: popsiclestick/gist-sync-action@v1.0.0
+          name: core
+      - uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gist_url: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
           gist_title: homebrew-core.txt
           github_file: core.txt
 
-      - if: ${{ !github.event.inputs.skip_cask }}
-        uses: popsiclestick/gist-sync-action@v1.0.0
+  gist-cask:
+    needs: check-cask
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: cask
+      - uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gist_url: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
           gist_title: homebrew-cask.txt
           github_file: cask.txt
 
-      - if: ${{ !github.event.inputs.skip_linux }}
-        uses: popsiclestick/gist-sync-action@v1.0.0
+  gist-linux:
+    needs: check-linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: linux
+      - uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gist_url: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
           gist_title: linuxbrew-core.txt
           github_file: linux.txt
 
-      - if: ${{ !github.event.inputs.skip_bio }}
-        uses: popsiclestick/gist-sync-action@v1.0.0
+  gist-bio:
+    needs: check-bio
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: bio
+      - uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gist_url: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
