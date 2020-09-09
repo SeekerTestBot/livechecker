@@ -1,4 +1,4 @@
-path = ARGV[1] || "linuxbrew-core.txt"
+path = ARGV[0] || "linuxbrew-core.txt"
 File.read(path).lines.each do |line|
   m = line.match(/^([^ ]+) : [^ ]+ ==> [^ ]+$/)
   next if m.nil?
