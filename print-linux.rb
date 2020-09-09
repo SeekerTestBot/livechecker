@@ -1,4 +1,4 @@
-tap_name = ARGV[1] || "homebrew/core"
+tap_name = ARGV[0] || "homebrew/core"
 tap = Tap.fetch(tap_name)
 formulae = tap.formula_files.map(&Formulary.method(:factory)).sort
 formulae.each do |formula|
