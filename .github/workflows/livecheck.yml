@@ -61,7 +61,9 @@ jobs:
       image: homebrew/ubuntu16.04:master
     steps:
       - run: brew update-reset
-      - run: brew livecheck --newer-only --quiet --tap homebrew/core > linux.txt || true
+      - uses: actions/checkout@v2
+      - run: brew ruby $GITHUB_WORKSPACE/print-linux.rb > $HOME/.brew_livecheck_watchlist
+      - run: brew livecheck --newer-only --quiet > linux.txt || true
       - run: cat linux.txt
       - run: echo >> linux.txt
       - uses: actions/upload-artifact@v2
