@@ -6,8 +6,8 @@ original_list = []
 original_lines.each do |line|
   m = line.match(/^(.+?) : (.+?) ==> (.+)$/)
   next if m.nil?
-  formula_name = m.captures.first
-  original_list << formula_name
+  fc_name = m.captures.first
+  original_list << fc_name
 end
 
 new_hash = {}
@@ -18,10 +18,10 @@ IO.popen([HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--j
   require 'json'
   livecheck_array = JSON.parse(json_string)
 
-  livecheck_array.each do |formula_hash|
-    if formula_hash["version"]["outdated"] || formula_hash["version"]["newer_than_upstream"]
-      formula_name = formula_hash["formula"]
-      new_hash[formula_name] = "#{formula_name} : #{formula_hash["version"]["current"]} ==> #{formula_hash["version"]["latest"]}"
+  livecheck_array.each do |fc_hash|
+    if fc_hash["version"]["outdated"] || fc_hash["version"]["newer_than_upstream"]
+      fc_name = fc_hash["formula"] || fc_hash["cask"]
+      new_hash[fc_name] = "#{fc_name} : #{fc_hash["version"]["current"]} ==> #{fc_hash["version"]["latest"]}"
     end
   end
 }
@@ -29,6 +29,6 @@ IO.popen([HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--j
 puts original_lines.map { |line|
   m = line.match(/^(.+?) : (.+?) ==> (.+)$/)
   next line if m.nil?
-  formula_name = m.captures.first
-  new_hash[formula_name]
+  fc_name = m.captures.first
+  new_hash[fc_name]
 }.compact
