@@ -1,20 +1,11 @@
 original_lines = File.read(ARGV[0] || "homebrew-core.txt").lines
 livecheck_command = ARGV[1] || "livecheck"
 
-original_list = []
-
-original_lines.each do |line|
-  m = line.match(/^(.+?) : (.+?) ==> (.+)$/)
-  next if m.nil?
-  fc_name = m.captures.first
-  original_list << fc_name
-end
-
 new_hash = {}
 
-puts ["", HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--json", *original_list, ""] if ARGV.include?("--debug")
+puts ["", HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--json", ""] if ARGV.include?("--debug")
 
-IO.popen([HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--json", *original_list]) {|brew_io|
+IO.popen([HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--json"]) {|brew_io|
   json_string = brew_io.read.strip
 
   require 'json'
