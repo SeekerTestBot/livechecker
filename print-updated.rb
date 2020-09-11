@@ -12,7 +12,7 @@ end
 
 new_hash = {}
 
-puts ["", HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--json", *original_list, ""] if ENV["LIVECHECKER_DEBUG"]
+puts ["", HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--json", *original_list, ""] if ARGV.include?("--debug")
 
 IO.popen([HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--json", *original_list]) {|brew_io|
   json_string = brew_io.read.strip
