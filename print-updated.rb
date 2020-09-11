@@ -1,4 +1,5 @@
 original_lines = File.read(ARGV[0] || "homebrew-core.txt").lines
+livecheck_command = ARGV[1] || "livecheck"
 
 original_list = []
 
@@ -11,7 +12,7 @@ end
 
 new_hash = {}
 
-IO.popen([HOMEBREW_BREW_FILE, "livecheck", "--json", *original_list]) {|brew_io|
+IO.popen([HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--json", *original_list]) {|brew_io|
   json_string = brew_io.read.strip
 
   require 'json'
