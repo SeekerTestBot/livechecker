@@ -12,12 +12,9 @@ on:
       skip_bio:
         default: false
 
-  schedule:
-    # Every 24 hours
-    - cron: '0 */24 * * *'
-
-  #push:
-  #  branches: [master]
+#   schedule:
+#     # Every 24 hours
+#     - cron: '0 */24 * * *'
 
 env:
   HOMEBREW_NO_COLOR: 1
