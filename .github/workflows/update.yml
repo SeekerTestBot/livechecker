@@ -6,7 +6,7 @@ on:
       skip_core:
         default: false
       skip_cask:
-        default: true
+        default: false
       skip_linux:
         default: false
       skip_bio:
