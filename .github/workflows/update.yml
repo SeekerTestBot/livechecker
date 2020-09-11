@@ -31,6 +31,7 @@ jobs:
       - run: brew update-reset
       - run: curl -o core.txt -L https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195/raw
       - uses: actions/checkout@v2
+      - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb core.txt > $HOME/.brew_livecheck_watchlist
       - run: brew ruby $GITHUB_WORKSPACE/print-updated.rb core.txt livecheck --debug > core.txt
       - uses: actions/upload-artifact@v2
         with:
@@ -45,6 +46,7 @@ jobs:
       - run: brew tap SeekingMeaning/cask-livecheck
       - run: curl -o cask.txt -L https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0/raw
       - uses: actions/checkout@v2
+      - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb cask.txt > $HOME/.brew_livecheck_watchlist
       - run: brew ruby $GITHUB_WORKSPACE/print-updated.rb cask.txt cask-livecheck --debug > cask.txt
       - uses: actions/upload-artifact@v2
         with:
@@ -60,6 +62,7 @@ jobs:
       - run: brew update-reset
       - run: curl -o linux.txt -L https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a/raw
       - uses: actions/checkout@v2
+      - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb linux.txt > $HOME/.brew_livecheck_watchlist
       - run: brew ruby $GITHUB_WORKSPACE/print-updated.rb linux.txt livecheck --debug > linux.txt
       - uses: actions/upload-artifact@v2
         with:
@@ -76,6 +79,7 @@ jobs:
       - run: brew tap brewsci/bio
       - run: curl -o bio.txt -L https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a/raw
       - uses: actions/checkout@v2
+      - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb bio.txt > $HOME/.brew_livecheck_watchlist
       - run: brew ruby $GITHUB_WORKSPACE/print-updated.rb bio.txt livecheck --debug > bio.txt
       - uses: actions/upload-artifact@v2
         with:
