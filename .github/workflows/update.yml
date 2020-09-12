@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: curl -o core.txt -L https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195/raw
       - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb core.txt > $HOME/.brew_livecheck_watchlist
-      - run: brew livecheck --newer-only --quiet > core.txt
+      - run: brew livecheck --newer-only --quiet > core.txt || true
       - run: echo >> core.txt
       - uses: actions/upload-artifact@v2
         with:
@@ -49,7 +49,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: curl -o cask.txt -L https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0/raw
       - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb cask.txt > $HOME/.brew_livecheck_watchlist
-      - run: brew cask-livecheck --newer-only --quiet > cask.txt
+      - run: brew cask-livecheck --newer-only --quiet > cask.txt || true
       - run: echo >> cask.txt
       - uses: actions/upload-artifact@v2
         with:
@@ -66,7 +66,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: curl -o linux.txt -L https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a/raw
       - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb linux.txt > $HOME/.brew_livecheck_watchlist
-      - run: brew livecheck --newer-only --quiet > linux.txt
+      - run: brew livecheck --newer-only --quiet > linux.txt || true
       - run: echo >> linux.txt
       - uses: actions/upload-artifact@v2
         with:
@@ -84,7 +84,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: curl -o bio.txt -L https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a/raw
       - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb bio.txt > $HOME/.brew_livecheck_watchlist
-      - run: brew livecheck --newer-only --quiet > bio.txt
+      - run: brew livecheck --newer-only --quiet > bio.txt || true
       - run: echo >> bio.txt
       - uses: actions/upload-artifact@v2
         with:
@@ -102,7 +102,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: curl -o languages.txt -L https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431/raw
       - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb languages.txt > $HOME/.brew_livecheck_watchlist
-      - run: brew livecheck --newer-only --quiet > languages.txt
+      - run: brew livecheck --newer-only --quiet > languages.txt || true
       - run: echo >> languages.txt
       - uses: actions/upload-artifact@v2
         with:
