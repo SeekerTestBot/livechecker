@@ -17,11 +17,11 @@ IO.popen([HOMEBREW_BREW_FILE, livecheck_command, "--newer-only", "--quiet", "--j
       new_hash[fc_name] = "#{fc_name} : #{fc_hash["version"]["current"]} ==> #{fc_hash["version"]["latest"]}"
     end
   end
-}
 
-puts original_lines.map { |line|
-  m = line.match(/^(.+?) : (.+?) ==> (.+)$/)
-  next line if m.nil?
-  fc_name = m.captures.first
-  new_hash[fc_name]
-}.compact
+  puts original_lines.map { |line|
+    m = line.match(/^(.+?) : (.+?) ==> (.+)$/)
+    next line if m.nil?
+    fc_name = m.captures.first
+    new_hash[fc_name]
+  }.compact
+}
