@@ -11,6 +11,8 @@ on:
         default: false
       skip_bio:
         default: false
+      skip_languages:
+        default: false
 
   schedule:
     - cron: '0 10,16,22 * * *'
@@ -89,6 +91,24 @@ jobs:
           name: bio
           path: bio.txt
 
+  check-languages:
+    if: ${{ !github.event.inputs.skip_languages }}
+    runs-on: ubuntu-latest
+    container:
+      image: homebrew/ubuntu16.04:master
+    steps:
+      - run: brew update-reset
+      - run: brew tap SeekingMeaning/languages
+      - uses: actions/checkout@v2
+      - run: curl -o languages.txt -L https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431/raw
+      - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb languages.txt > $HOME/.brew_livecheck_watchlist
+      - run: brew livecheck --newer-only --quiet > languages.txt
+      - run: echo >> languages.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: languages
+          path: languages.txt
+
   gist-core:
     needs: check-core
     runs-on: ubuntu-latest
@@ -144,3 +164,17 @@ jobs:
           gist_url: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
           gist_title: brewsci-bio.txt
           github_file: bio.txt
+
+  gist-languages:
+    needs: check-languages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: languages
+      - uses: popsiclestick/gist-sync-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gist_url: https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431
+          gist_title: seekingmeaning-languages.txt
+          github_file: languages.txt
