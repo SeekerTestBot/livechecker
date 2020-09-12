@@ -13,8 +13,7 @@ on:
         default: false
 
   schedule:
-    # Every 24 hours
-    - cron: '0 */24 * * *'
+    - cron: '0 5 * * *'
 
 env:
   HOMEBREW_NO_COLOR: 1
