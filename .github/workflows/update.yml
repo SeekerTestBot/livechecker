@@ -13,7 +13,7 @@ on:
         default: false
 
   schedule:
-    - cron: '0 11,17,23 * * *'
+    - cron: '0 10,16,22 * * *'
 
 env:
   HOMEBREW_NO_COLOR: 1
