@@ -92,6 +92,7 @@ jobs:
       image: homebrew/ubuntu16.04:master
     steps:
       - run: brew update-reset
+      - run: brew tap SeekingMeaning/languages
       - run: brew livecheck --newer-only --quiet --tap SeekingMeaning/languages > languages.txt || true
       - run: cat languages.txt
       - run: echo >> languages.txt
