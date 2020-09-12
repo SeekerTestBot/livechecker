@@ -12,9 +12,9 @@ on:
       skip_bio:
         default: false
 
-#   schedule:
-#     # Every 6 hours except midnight
-#     - cron: '0 6,12,18 * * *'
+  schedule:
+    # Every 6 hours except midnight
+    - cron: '0 6,12,18 * * *'
 
 env:
   HOMEBREW_NO_COLOR: 1
@@ -30,11 +30,10 @@ jobs:
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
-      - run:  |
-          curl -o core.txt -L https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195/raw
-          brew ruby $GITHUB_WORKSPACE/print-formulae.rb core.txt > $HOME/.brew_livecheck_watchlist
-          brew livecheck --newer-only --quiet > core.txt
-          echo >> core.txt
+      - run: curl -o core.txt -L https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195/raw
+      - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb core.txt > $HOME/.brew_livecheck_watchlist
+      - run: brew livecheck --newer-only --quiet > core.txt
+      - run: echo >> core.txt
       - uses: actions/upload-artifact@v2
         with:
           name: core
@@ -47,11 +46,10 @@ jobs:
       - run: brew update-reset
       - run: brew tap SeekingMeaning/cask-livecheck
       - uses: actions/checkout@v2
-      - run: |
-          curl -o cask.txt -L https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0/raw
-          brew ruby $GITHUB_WORKSPACE/print-formulae.rb cask.txt > $HOME/.brew_livecheck_watchlist
-          brew cask-livecheck --newer-only --quiet > cask.txt
-          echo >> cask.txt
+      - run: curl -o cask.txt -L https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0/raw
+      - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb cask.txt > $HOME/.brew_livecheck_watchlist
+      - run: brew cask-livecheck --newer-only --quiet > cask.txt
+      - run: echo >> cask.txt
       - uses: actions/upload-artifact@v2
         with:
           name: cask
@@ -65,11 +63,10 @@ jobs:
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
-      - run:  |
-          curl -o linux.txt -L https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a/raw
-          brew ruby $GITHUB_WORKSPACE/print-formulae.rb linux.txt > $HOME/.brew_livecheck_watchlist
-          brew livecheck --newer-only --quiet > linux.txt
-          echo >> linux.txt
+      - run: curl -o linux.txt -L https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a/raw
+      - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb linux.txt > $HOME/.brew_livecheck_watchlist
+      - run: brew livecheck --newer-only --quiet > linux.txt
+      - run: echo >> linux.txt
       - uses: actions/upload-artifact@v2
         with:
           name: linux
@@ -84,11 +81,10 @@ jobs:
       - run: brew update-reset
       - run: brew tap brewsci/bio
       - uses: actions/checkout@v2
-      - run:  |
-          curl -o bio.txt -L https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a/raw
-          brew ruby $GITHUB_WORKSPACE/print-formulae.rb bio.txt > $HOME/.brew_livecheck_watchlist
-          brew livecheck --newer-only --quiet > bio.txt
-          echo >> bio.txt
+      - run: curl -o bio.txt -L https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a/raw
+      - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb bio.txt > $HOME/.brew_livecheck_watchlist
+      - run: brew livecheck --newer-only --quiet > bio.txt
+      - run: echo >> bio.txt
       - uses: actions/upload-artifact@v2
         with:
           name: bio
