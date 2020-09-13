@@ -9,5 +9,4 @@ if [ $? -eq 0 ]; then
   brew ${LIVECHECKER_COMMAND:-livecheck} --newer-only --quiet > $LIVECHECKER_FILE || true
 fi
 cat $LIVECHECKER_FILE
-echo >> $LIVECHECKER_FILE
 exit 0
