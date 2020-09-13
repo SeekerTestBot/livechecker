@@ -100,11 +100,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
+    env:
+      GIST_URL: https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431
     steps:
       - run: brew update-reset
-      - run: brew tap SeekingMeaning/languages
       - uses: actions/checkout@v2
-      - run: bash $GITHUB_WORKSPACE/update.sh languages.txt https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431/raw
+      - run: ./update languages.txt $GIST_URL/raw SeekingMeaning/languages
       - uses: actions/upload-artifact@v2
         with:
           name: languages
