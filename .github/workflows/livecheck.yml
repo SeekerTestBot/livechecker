@@ -28,80 +28,100 @@ jobs:
   core:
     if: ${{ !github.event.inputs.skip_core }}
     runs-on: macos-latest
+    env:
+      LIVECHECKER_TAP: homebrew/core
+      LIVECHECKER_FILE: homebrew-core.txt
+      LIVECHECKER_GIST: 26cd541935bd0380a0ac0e996fc56195
     steps:
       - run: brew update-reset
-      - run: brew livecheck --newer-only --quiet --tap homebrew/core > core.txt || true
-      - run: cat core.txt
+      - run: brew livecheck --newer-only --quiet --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE || true
+      - run: cat $LIVECHECKER_FILE
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
           token: ${{ secrets.GIST_TOKEN }}
-          gist_id: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
-          gist_file_name: homebrew-core.txt
-          file_path: core.txt
+          gist_id: ${{ env.LIVECHECKER_GIST }}
+          gist_file_name: ${{ env.LIVECHECKER_FILE }}
+          file_path: ${{ env.LIVECHECKER_FILE }}
 
   cask:
     if: ${{ !github.event.inputs.skip_cask }}
     runs-on: macos-latest
+    env:
+      LIVECHECKER_TAP: homebrew/cask
+      LIVECHECKER_FILE: homebrew-cask.txt
+      LIVECHECKER_GIST: 94b2ada768a1b2c5839667414806d2b0
     steps:
       - run: brew update-reset
       - run: brew tap SeekingMeaning/cask-livecheck
-      - run: brew cask-livecheck --newer-only --quiet --tap homebrew/cask > cask.txt || true
-      - run: cat cask.txt
+      - run: brew cask-livecheck --newer-only --quiet --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE || true
+      - run: cat $LIVECHECKER_FILE
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
           token: ${{ secrets.GIST_TOKEN }}
-          gist_id: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
-          gist_file_name: homebrew-cask.txt
-          file_path: cask.txt
+          gist_id: ${{ env.LIVECHECKER_GIST }}
+          gist_file_name: ${{ env.LIVECHECKER_FILE }}
+          file_path: ${{ env.LIVECHECKER_FILE }}
 
   linux:
     if: ${{ !github.event.inputs.skip_linux }}
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
+    env:
+      LIVECHECKER_TAP: homebrew/core
+      LIVECHECKER_FILE: linuxbrew-core.txt
+      LIVECHECKER_GIST: 58843cb8fdd4b3a6ef841b066726209a
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
-      - run: brew ruby $GITHUB_WORKSPACE/print-linux.rb > $HOME/.brew_livecheck_watchlist
-      - run: brew livecheck --newer-only --quiet > linux.txt || true
-      - run: cat linux.txt
+      - run: brew ruby $GITHUB_WORKSPACE/print-linux.rb $LIVECHECKER_TAP > $HOME/.brew_livecheck_watchlist
+      - run: brew livecheck --newer-only --quiet > $LIVECHECKER_FILE || true
+      - run: cat $LIVECHECKER_FILE
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
           token: ${{ secrets.GIST_TOKEN }}
-          gist_id: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
-          gist_file_name: linuxbrew-core.txt
-          file_path: linux.txt
+          gist_id: ${{ env.LIVECHECKER_GIST }}
+          gist_file_name: ${{ env.LIVECHECKER_FILE }}
+          file_path: ${{ env.LIVECHECKER_FILE }}
 
   bio:
     if: ${{ !github.event.inputs.skip_bio }}
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
+    env:
+      LIVECHECKER_TAP: brewsci/bio
+      LIVECHECKER_FILE: brewsci-bio.txt
+      LIVECHECKER_GIST: d804d3e7a2895257d47c26abf9ae486a
     steps:
       - run: brew update-reset
-      - run: brew tap brewsci/bio
-      - run: brew livecheck --newer-only --quiet --tap brewsci/bio > bio.txt || true
-      - run: cat bio.txt
+      - run: brew tap $LIVECHECKER_TAP
+      - run: brew livecheck --newer-only --quiet --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE || true
+      - run: cat $LIVECHECKER_FILE
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
           token: ${{ secrets.GIST_TOKEN }}
-          gist_id: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
-          gist_file_name: brewsci-bio.txt
-          file_path: bio.txt
+          gist_id: ${{ env.LIVECHECKER_GIST }}
+          gist_file_name: ${{ env.LIVECHECKER_FILE }}
+          file_path: ${{ env.LIVECHECKER_FILE }}
 
   languages:
     if: ${{ !github.event.inputs.skip_languages }}
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
+    env:
+      LIVECHECKER_TAP: SeekingMeaning/languages
+      LIVECHECKER_FILE: seekingmeaning-languages.txt
+      LIVECHECKER_GIST: 6f87957bdeecb59238ffd770e3d36431
     steps:
       - run: brew update-reset
-      - run: brew tap SeekingMeaning/languages
-      - run: brew livecheck --newer-only --quiet --tap SeekingMeaning/languages > languages.txt || true
-      - run: cat languages.txt
+      - run: brew tap $LIVECHECKER_TAP
+      - run: brew livecheck --newer-only --quiet --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE || true
+      - run: cat $LIVECHECKER_FILE
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
           token: ${{ secrets.GIST_TOKEN }}
-          gist_id: https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431
-          gist_file_name: seekingmeaning-languages.txt
-          file_path: languages.txt
+          gist_id: ${{ env.LIVECHECKER_GIST }}
+          gist_file_name: ${{ env.LIVECHECKER_FILE }}
+          file_path: ${{ env.LIVECHECKER_FILE }}
