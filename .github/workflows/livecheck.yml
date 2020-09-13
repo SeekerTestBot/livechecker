@@ -25,19 +25,21 @@ env:
 
 jobs:
 
-  check-core:
+  core:
     if: ${{ !github.event.inputs.skip_core }}
     runs-on: macos-latest
     steps:
       - run: brew update-reset
       - run: brew livecheck --newer-only --quiet --tap homebrew/core > core.txt || true
       - run: cat core.txt
-      - uses: actions/upload-artifact@v2
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          name: core
-          path: core.txt
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
+          gist_file_name: homebrew-core.txt
+          file_path: core.txt
 
-  check-cask:
+  cask:
     if: ${{ !github.event.inputs.skip_cask }}
     runs-on: macos-latest
     steps:
@@ -45,12 +47,14 @@ jobs:
       - run: brew tap SeekingMeaning/cask-livecheck
       - run: brew cask-livecheck --newer-only --quiet --tap homebrew/cask > cask.txt || true
       - run: cat cask.txt
-      - uses: actions/upload-artifact@v2
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          name: cask
-          path: cask.txt
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
+          gist_file_name: homebrew-cask.txt
+          file_path: cask.txt
 
-  check-linux:
+  linux:
     if: ${{ !github.event.inputs.skip_linux }}
     runs-on: ubuntu-latest
     container:
@@ -61,12 +65,14 @@ jobs:
       - run: brew ruby $GITHUB_WORKSPACE/print-linux.rb > $HOME/.brew_livecheck_watchlist
       - run: brew livecheck --newer-only --quiet > linux.txt || true
       - run: cat linux.txt
-      - uses: actions/upload-artifact@v2
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          name: linux
-          path: linux.txt
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
+          gist_file_name: linuxbrew-core.txt
+          file_path: linux.txt
 
-  check-bio:
+  bio:
     if: ${{ !github.event.inputs.skip_bio }}
     runs-on: ubuntu-latest
     container:
@@ -76,12 +82,14 @@ jobs:
       - run: brew tap brewsci/bio
       - run: brew livecheck --newer-only --quiet --tap brewsci/bio > bio.txt || true
       - run: cat bio.txt
-      - uses: actions/upload-artifact@v2
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          name: bio
-          path: bio.txt
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
+          gist_file_name: brewsci-bio.txt
+          file_path: bio.txt
 
-  check-languages:
+  languages:
     if: ${{ !github.event.inputs.skip_languages }}
     runs-on: ubuntu-latest
     container:
@@ -91,74 +99,6 @@ jobs:
       - run: brew tap SeekingMeaning/languages
       - run: brew livecheck --newer-only --quiet --tap SeekingMeaning/languages > languages.txt || true
       - run: cat languages.txt
-      - uses: actions/upload-artifact@v2
-        with:
-          name: languages
-          path: languages.txt
-
-  gist-core:
-    needs: check-core
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: core
-      - uses: exuanbo/actions-deploy-gist@v1.0.2
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
-          gist_file_name: homebrew-core.txt
-          file_path: core.txt
-
-  gist-cask:
-    needs: check-cask
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: cask
-      - uses: exuanbo/actions-deploy-gist@v1.0.2
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
-          gist_file_name: homebrew-cask.txt
-          file_path: cask.txt
-
-  gist-linux:
-    needs: check-linux
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: linux
-      - uses: exuanbo/actions-deploy-gist@v1.0.2
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
-          gist_file_name: linuxbrew-core.txt
-          file_path: linux.txt
-
-  gist-bio:
-    needs: check-bio
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: bio
-      - uses: exuanbo/actions-deploy-gist@v1.0.2
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
-          gist_file_name: brewsci-bio.txt
-          file_path: bio.txt
-
-  gist-languages:
-    needs: check-languages
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: languages
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
           token: ${{ secrets.GIST_TOKEN }}
