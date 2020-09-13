@@ -104,6 +104,12 @@ jobs:
         with:
           name: languages
           path: languages.txt
+      - uses: popsiclestick/gist-sync-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gist_url: $LIVECHECKER_GIST
+          gist_title: seekingmeaning-languages.txt
+          github_file: languages.txt
 
   gist-core:
     needs: check-core
@@ -161,16 +167,3 @@ jobs:
           gist_title: brewsci-bio.txt
           github_file: bio.txt
 
-  gist-languages:
-    needs: check-languages
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: languages
-      - uses: popsiclestick/gist-sync-action@v1.0.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431
-          gist_title: seekingmeaning-languages.txt
-          github_file: languages.txt
