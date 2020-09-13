@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Usage: ./update languages.txt
-curl -o $1 -L $LIVECHECKER_GIST_URL/raw
+curl -o $1 -L $LIVECHECKER_GIST/raw
 brew ruby print-formulae.rb $1 > $HOME/.brew_livecheck_watchlist
 if [ $? -eq 0 ]; then
   if [ ! -z "$LIVECHECKER_TAP" ]; then
