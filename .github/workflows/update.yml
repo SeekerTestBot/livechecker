@@ -153,9 +153,9 @@ jobs:
         with:
           name: ${{ github.job }}
           path: ${{ env.LIVECHECKER_FILE }}
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: ${{ env.LIVECHECKER_GIST }}
-          gist_title: ${{ env.LIVECHECKER_FILE }}
-          github_file: ${{ env.LIVECHECKER_FILE }}
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: 6f87957bdeecb59238ffd770e3d36431
+          gist_file_name: ${{ env.LIVECHECKER_FILE }}
+          file_path: ${{ env.LIVECHECKER_FILE }}
