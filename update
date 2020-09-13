@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+brew update-reset
 curl -o $LIVECHECKER_FILE -L https://gist.github.com/SeekerTestBot/$LIVECHECKER_GIST/raw
 brew ruby print-formulae.rb $LIVECHECKER_FILE > $HOME/.brew_livecheck_watchlist
 if [ $? -eq 0 ]; then
