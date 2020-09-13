@@ -142,7 +142,7 @@ jobs:
     container:
       image: homebrew/ubuntu16.04:master
     env:
-      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431
+      LIVECHECKER_GIST: 6f87957bdeecb59238ffd770e3d36431
       LIVECHECKER_FILE: seekingmeaning-languages.txt
       LIVECHECKER_TAP: SeekingMeaning/languages
     steps:
@@ -156,6 +156,6 @@ jobs:
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
           token: ${{ secrets.GIST_TOKEN }}
-          gist_id: 6f87957bdeecb59238ffd770e3d36431
+          gist_id: ${{ env.LIVECHECKER_GIST }}
           gist_file_name: ${{ env.LIVECHECKER_FILE }}
           file_path: ${{ env.LIVECHECKER_FILE }}
