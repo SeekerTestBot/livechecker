@@ -25,68 +25,84 @@ env:
 
 jobs:
 
-  check-core:
+  core:
     if: ${{ !github.event.inputs.skip_core }}
     runs-on: macos-latest
     env:
       LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
+      LIVECHECKER_FILE: homebrew-core.txt
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
-      - run: ./update core.txt
+      - run: ./update
       - uses: actions/upload-artifact@v2
         with:
-          name: core
-          path: core.txt
+          name: ${{ github.job }}
+          path: ${{ env.LIVECHECKER_FILE }}
 
-  check-cask:
+  cask:
     if: ${{ !github.event.inputs.skip_cask }}
     runs-on: macos-latest
     env:
       LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
+      LIVECHECKER_FILE: homebrew-cask.txt
       LIVECHECKER_TAP: SeekingMeaning/cask-livecheck
       LIVECHECKER_COMMAND: cask-livecheck
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
-      - run: ./update cask.txt
+      - run: ./update
       - uses: actions/upload-artifact@v2
         with:
-          name: cask
-          path: cask.txt
+          name: ${{ github.job }}
+          path: ${{ env.LIVECHECKER_FILE }}
 
-  check-linux:
+  linux:
     if: ${{ !github.event.inputs.skip_linux }}
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
     env:
       LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
+      LIVECHECKER_FILE: linuxbrew-core.txt
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
-      - run: ./update linux.txt
+      - run: ./update
       - uses: actions/upload-artifact@v2
         with:
-          name: linux
-          path: linux.txt
+          name: ${{ github.job }}
+          path: ${{ env.LIVECHECKER_FILE }}
+      - uses: popsiclestick/gist-sync-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gist_url: ${{ env.LIVECHECKER_GIST }}
+          gist_title: ${{ env.LIVECHECKER_FILE }}
+          github_file: ${{ env.LIVECHECKER_FILE }}
 
-  check-bio:
+  bio:
     if: ${{ !github.event.inputs.skip_bio }}
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
     env:
       LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
+      LIVECHECKER_FILE: brewsci-bio.txt
       LIVECHECKER_TAP: brewsci/bio
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
-      - run: ./update bio.txt
+      - run: ./update
       - uses: actions/upload-artifact@v2
         with:
-          name: bio
-          path: bio.txt
+          name: ${{ github.job }}
+          path: ${{ env.LIVECHECKER_FILE }}
+      - uses: popsiclestick/gist-sync-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gist_url: ${{ env.LIVECHECKER_GIST }}
+          gist_title: ${{ env.LIVECHECKER_FILE }}
+          github_file: ${{ env.LIVECHECKER_FILE }}
 
   languages:
     if: ${{ !github.event.inputs.skip_languages }}
@@ -100,7 +116,7 @@ jobs:
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
-      - run: ./update $LIVECHECKER_FILE
+      - run: ./update
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ github.job }}
@@ -113,8 +129,11 @@ jobs:
           github_file: ${{ env.LIVECHECKER_FILE }}
 
   gist-core:
-    needs: check-core
+    needs: core
     runs-on: ubuntu-latest
+    env:
+      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
+      LIVECHECKER_FILE: homebrew-core.txt
     steps:
       - uses: actions/download-artifact@v2
         with:
@@ -122,13 +141,16 @@ jobs:
       - uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
-          gist_title: homebrew-core.txt
-          github_file: core.txt
+          gist_url: ${{ env.LIVECHECKER_GIST }}
+          gist_title: ${{ env.LIVECHECKER_FILE }}
+          github_file: ${{ env.LIVECHECKER_FILE }}
 
   gist-cask:
-    needs: check-cask
+    needs: cask
     runs-on: ubuntu-latest
+    env:
+      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
+      LIVECHECKER_FILE: linuxbrew-core.txt
     steps:
       - uses: actions/download-artifact@v2
         with:
@@ -136,35 +158,6 @@ jobs:
       - uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
-          gist_title: homebrew-cask.txt
-          github_file: cask.txt
-
-  gist-linux:
-    needs: check-linux
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: linux
-      - uses: popsiclestick/gist-sync-action@v1.0.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
-          gist_title: linuxbrew-core.txt
-          github_file: linux.txt
-
-  gist-bio:
-    needs: check-bio
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: bio
-      - uses: popsiclestick/gist-sync-action@v1.0.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
-          gist_title: brewsci-bio.txt
-          github_file: bio.txt
-
+          gist_url: ${{ env.LIVECHECKER_GIST }}
+          gist_title: ${{ env.LIVECHECKER_FILE }}
+          github_file: ${{ env.LIVECHECKER_FILE }}
