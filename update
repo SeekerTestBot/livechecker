@@ -2,7 +2,7 @@
 brew update-reset
 curl -o $LIVECHECKER_FILE -L https://gist.github.com/SeekerTestBot/$LIVECHECKER_GIST/raw
 brew ruby print-formulae.rb $LIVECHECKER_FILE > $HOME/.brew_livecheck_watchlist
-if [ $? -eq 0 ]; then
+if grep -q '[^[:space:]]' "$HOME/.brew_livecheck_watchlist"; then
   if [ ! -z "$LIVECHECKER_TAP" ]; then
     brew tap $LIVECHECKER_TAP
   fi
