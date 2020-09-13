@@ -29,7 +29,7 @@ jobs:
     if: ${{ !github.event.inputs.skip_core }}
     runs-on: macos-latest
     env:
-      LIVECHECKER_GIST_URL: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
+      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
@@ -43,7 +43,7 @@ jobs:
     if: ${{ !github.event.inputs.skip_cask }}
     runs-on: macos-latest
     env:
-      LIVECHECKER_GIST_URL: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
+      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
       LIVECHECKER_TAP: SeekingMeaning/cask-livecheck
       LIVECHECKER_COMMAND: cask-livecheck
     steps:
@@ -61,7 +61,7 @@ jobs:
     container:
       image: homebrew/ubuntu16.04:master
     env:
-      LIVECHECKER_GIST_URL: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
+      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
@@ -77,7 +77,7 @@ jobs:
     container:
       image: homebrew/ubuntu16.04:master
     env:
-      LIVECHECKER_GIST_URL: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
+      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
       LIVECHECKER_TAP: brewsci/bio
     steps:
       - run: brew update-reset
@@ -94,7 +94,7 @@ jobs:
     container:
       image: homebrew/ubuntu16.04:master
     env:
-      LIVECHECKER_GIST_URL: https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431
+      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431
       LIVECHECKER_TAP: SeekingMeaning/languages
     steps:
       - run: brew update-reset
