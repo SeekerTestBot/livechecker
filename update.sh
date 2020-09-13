@@ -3,6 +3,9 @@
 curl -o $1 -L $2
 brew ruby $GITHUB_WORKSPACE/print-formulae.rb $1 > $HOME/.brew_livecheck_watchlist
 if [ $? -eq 0 ]; then
+  if [ ! -z "$3" ]; then
+    brew tap $3
+  fi
   brew livecheck --newer-only --quiet > $1 || true
 fi
 cat $1
