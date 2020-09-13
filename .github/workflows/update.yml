@@ -88,28 +88,29 @@ jobs:
           name: bio
           path: bio.txt
 
-  check-languages:
+  languages:
     if: ${{ !github.event.inputs.skip_languages }}
     runs-on: ubuntu-latest
     container:
       image: homebrew/ubuntu16.04:master
     env:
       LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431
+      LIVECHECKER_FILE: seekingmeaning-languages.txt
       LIVECHECKER_TAP: SeekingMeaning/languages
     steps:
       - run: brew update-reset
       - uses: actions/checkout@v2
-      - run: ./update languages.txt
+      - run: ./update $LIVECHECKER_FILE
       - uses: actions/upload-artifact@v2
         with:
-          name: languages
-          path: languages.txt
+          name: ${{ github.job }}
+          path: ${{ env.LIVECHECKER_FILE }}
       - uses: popsiclestick/gist-sync-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gist_url: ${{ env.LIVECHECKER_GIST }}
-          gist_title: seekingmeaning-languages.txt
-          github_file: languages.txt
+          gist_title: ${{ env.LIVECHECKER_FILE }}
+          github_file: ${{ env.LIVECHECKER_FILE }}
 
   gist-core:
     needs: check-core
