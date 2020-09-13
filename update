@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Usage: ./update languages.txt https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431/raw
+# Usage: ./update languages.txt https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431/raw SeekingMeaning/languages
 curl -o $1 -L $2
 brew ruby print-formulae.rb $1 > $HOME/.brew_livecheck_watchlist
 if [ $? -eq 0 ]; then
