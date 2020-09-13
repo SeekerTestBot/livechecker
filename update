@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Usage: ./update languages.txt https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431/raw SeekingMeaning/languages
-curl -o $1 -L $2
+# Usage: ./update languages.txt
+curl -o $1 -L $LIVECHECKER_GIST_URL/raw
 brew ruby print-formulae.rb $1 > $HOME/.brew_livecheck_watchlist
 if [ $? -eq 0 ]; then
-  if [ ! -z "$3" ]; then
-    brew tap $3
+  if [ ! -z "$LIVECHECKER_TAP" ]; then
+    brew tap $LIVECHECKER_TAP
   fi
-  brew livecheck --newer-only --quiet > $1 || true
+  brew ${LIVECHECKER_COMMAND:-livecheck} --newer-only --quiet > $1 || true
 fi
 cat $1
 echo >> $1
