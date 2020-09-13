@@ -72,8 +72,8 @@ jobs:
       LIVECHECKER_FILE: linuxbrew-core.txt
       LIVECHECKER_GIST: 58843cb8fdd4b3a6ef841b066726209a
     steps:
-      - run: brew update-reset
       - uses: actions/checkout@v2
+      - run: brew update-reset
       - run: brew ruby $GITHUB_WORKSPACE/print-linux.rb $LIVECHECKER_TAP > $HOME/.brew_livecheck_watchlist
       - run: brew livecheck --newer-only --quiet > $LIVECHECKER_FILE || true
       - run: cat $LIVECHECKER_FILE
