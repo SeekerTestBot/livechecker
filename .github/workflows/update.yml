@@ -32,7 +32,6 @@ jobs:
       LIVECHECKER_GIST: 26cd541935bd0380a0ac0e996fc56195
       LIVECHECKER_FILE: homebrew-core.txt
     steps:
-      - run: brew update-reset
       - uses: actions/checkout@v2
       - run: ./update
       - uses: actions/upload-artifact@v2
@@ -55,7 +54,6 @@ jobs:
       LIVECHECKER_TAP: SeekingMeaning/cask-livecheck
       LIVECHECKER_COMMAND: cask-livecheck
     steps:
-      - run: brew update-reset
       - uses: actions/checkout@v2
       - run: ./update
       - uses: actions/upload-artifact@v2
@@ -78,7 +76,6 @@ jobs:
       LIVECHECKER_GIST: 58843cb8fdd4b3a6ef841b066726209a
       LIVECHECKER_FILE: linuxbrew-core.txt
     steps:
-      - run: brew update-reset
       - uses: actions/checkout@v2
       - run: ./update
       - uses: actions/upload-artifact@v2
@@ -102,7 +99,6 @@ jobs:
       LIVECHECKER_FILE: brewsci-bio.txt
       LIVECHECKER_TAP: brewsci/bio
     steps:
-      - run: brew update-reset
       - uses: actions/checkout@v2
       - run: ./update
       - uses: actions/upload-artifact@v2
@@ -126,7 +122,6 @@ jobs:
       LIVECHECKER_FILE: seekingmeaning-languages.txt
       LIVECHECKER_TAP: SeekingMeaning/languages
     steps:
-      - run: brew update-reset
       - uses: actions/checkout@v2
       - run: ./update
       - uses: actions/upload-artifact@v2
