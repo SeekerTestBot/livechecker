@@ -104,11 +104,7 @@ jobs:
       - run: brew update-reset
       - run: brew tap SeekingMeaning/languages
       - uses: actions/checkout@v2
-      - run: curl -o languages.txt -L https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431/raw
-      - run: brew ruby $GITHUB_WORKSPACE/print-formulae.rb languages.txt > $HOME/.brew_livecheck_watchlist
-      - run: brew livecheck --newer-only --quiet > languages.txt || true
-      - run: cat languages.txt
-      - run: echo >> languages.txt
+      - run: bash $GITHUB_WORKSPACE/update.sh languages.txt https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431/raw
       - uses: actions/upload-artifact@v2
         with:
           name: languages
