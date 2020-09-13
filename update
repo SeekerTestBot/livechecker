@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Usage: ./update languages.txt
-curl -o $1 -L $LIVECHECKER_GIST/raw
-brew ruby print-formulae.rb $1 > $HOME/.brew_livecheck_watchlist
+curl -o $LIVECHECKER_FILE -L $LIVECHECKER_GIST/raw
+brew ruby print-formulae.rb $LIVECHECKER_FILE > $HOME/.brew_livecheck_watchlist
 if [ $? -eq 0 ]; then
   if [ ! -z "$LIVECHECKER_TAP" ]; then
     brew tap $LIVECHECKER_TAP
   fi
-  brew ${LIVECHECKER_COMMAND:-livecheck} --newer-only --quiet > $1 || true
+  brew ${LIVECHECKER_COMMAND:-livecheck} --newer-only --quiet > $LIVECHECKER_FILE || true
 fi
-cat $1
-echo >> $1
+cat $LIVECHECKER_FILE
+echo >> $LIVECHECKER_FILE
 exit 0
