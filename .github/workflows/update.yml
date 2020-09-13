@@ -29,7 +29,7 @@ jobs:
     if: ${{ !github.event.inputs.skip_core }}
     runs-on: macos-latest
     env:
-      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
+      LIVECHECKER_GIST: 26cd541935bd0380a0ac0e996fc56195
       LIVECHECKER_FILE: homebrew-core.txt
     steps:
       - run: brew update-reset
@@ -39,28 +39,18 @@ jobs:
         with:
           name: ${{ github.job }}
           path: ${{ env.LIVECHECKER_FILE }}
-  gist-core:
-    needs: core
-    runs-on: ubuntu-latest
-    env:
-      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
-      LIVECHECKER_FILE: homebrew-core.txt
-    steps:
-      - uses: actions/download-artifact@v2
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          name: core
-      - uses: popsiclestick/gist-sync-action@v1.0.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: ${{ env.LIVECHECKER_GIST }}
-          gist_title: ${{ env.LIVECHECKER_FILE }}
-          github_file: ${{ env.LIVECHECKER_FILE }}
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: ${{ env.LIVECHECKER_GIST }}
+          gist_file_name: ${{ env.LIVECHECKER_FILE }}
+          file_path: ${{ env.LIVECHECKER_FILE }}
 
   cask:
     if: ${{ !github.event.inputs.skip_cask }}
     runs-on: macos-latest
     env:
-      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
+      LIVECHECKER_GIST: 94b2ada768a1b2c5839667414806d2b0
       LIVECHECKER_FILE: homebrew-cask.txt
       LIVECHECKER_TAP: SeekingMeaning/cask-livecheck
       LIVECHECKER_COMMAND: cask-livecheck
@@ -72,22 +62,12 @@ jobs:
         with:
           name: ${{ github.job }}
           path: ${{ env.LIVECHECKER_FILE }}
-  gist-cask:
-    needs: cask
-    runs-on: ubuntu-latest
-    env:
-      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
-      LIVECHECKER_FILE: linuxbrew-core.txt
-    steps:
-      - uses: actions/download-artifact@v2
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          name: cask
-      - uses: popsiclestick/gist-sync-action@v1.0.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: ${{ env.LIVECHECKER_GIST }}
-          gist_title: ${{ env.LIVECHECKER_FILE }}
-          github_file: ${{ env.LIVECHECKER_FILE }}
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: ${{ env.LIVECHECKER_GIST }}
+          gist_file_name: ${{ env.LIVECHECKER_FILE }}
+          file_path: ${{ env.LIVECHECKER_FILE }}
 
   linux:
     if: ${{ !github.event.inputs.skip_linux }}
@@ -95,7 +75,7 @@ jobs:
     container:
       image: homebrew/ubuntu16.04:master
     env:
-      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
+      LIVECHECKER_GIST: 58843cb8fdd4b3a6ef841b066726209a
       LIVECHECKER_FILE: linuxbrew-core.txt
     steps:
       - run: brew update-reset
@@ -105,12 +85,12 @@ jobs:
         with:
           name: ${{ github.job }}
           path: ${{ env.LIVECHECKER_FILE }}
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: ${{ env.LIVECHECKER_GIST }}
-          gist_title: ${{ env.LIVECHECKER_FILE }}
-          github_file: ${{ env.LIVECHECKER_FILE }}
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: ${{ env.LIVECHECKER_GIST }}
+          gist_file_name: ${{ env.LIVECHECKER_FILE }}
+          file_path: ${{ env.LIVECHECKER_FILE }}
 
   bio:
     if: ${{ !github.event.inputs.skip_bio }}
@@ -118,7 +98,7 @@ jobs:
     container:
       image: homebrew/ubuntu16.04:master
     env:
-      LIVECHECKER_GIST: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
+      LIVECHECKER_GIST: d804d3e7a2895257d47c26abf9ae486a
       LIVECHECKER_FILE: brewsci-bio.txt
       LIVECHECKER_TAP: brewsci/bio
     steps:
@@ -129,12 +109,12 @@ jobs:
         with:
           name: ${{ github.job }}
           path: ${{ env.LIVECHECKER_FILE }}
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: ${{ env.LIVECHECKER_GIST }}
-          gist_title: ${{ env.LIVECHECKER_FILE }}
-          github_file: ${{ env.LIVECHECKER_FILE }}
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: ${{ env.LIVECHECKER_GIST }}
+          gist_file_name: ${{ env.LIVECHECKER_FILE }}
+          file_path: ${{ env.LIVECHECKER_FILE }}
 
   languages:
     if: ${{ !github.event.inputs.skip_languages }}
