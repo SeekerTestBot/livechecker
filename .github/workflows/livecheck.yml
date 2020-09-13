@@ -32,7 +32,6 @@ jobs:
       - run: brew update-reset
       - run: brew livecheck --newer-only --quiet --tap homebrew/core > core.txt || true
       - run: cat core.txt
-      - run: echo >> core.txt
       - uses: actions/upload-artifact@v2
         with:
           name: core
@@ -46,7 +45,6 @@ jobs:
       - run: brew tap SeekingMeaning/cask-livecheck
       - run: brew cask-livecheck --newer-only --quiet --tap homebrew/cask > cask.txt || true
       - run: cat cask.txt
-      - run: echo >> cask.txt
       - uses: actions/upload-artifact@v2
         with:
           name: cask
@@ -63,7 +61,6 @@ jobs:
       - run: brew ruby $GITHUB_WORKSPACE/print-linux.rb > $HOME/.brew_livecheck_watchlist
       - run: brew livecheck --newer-only --quiet > linux.txt || true
       - run: cat linux.txt
-      - run: echo >> linux.txt
       - uses: actions/upload-artifact@v2
         with:
           name: linux
@@ -79,7 +76,6 @@ jobs:
       - run: brew tap brewsci/bio
       - run: brew livecheck --newer-only --quiet --tap brewsci/bio > bio.txt || true
       - run: cat bio.txt
-      - run: echo >> bio.txt
       - uses: actions/upload-artifact@v2
         with:
           name: bio
@@ -95,7 +91,6 @@ jobs:
       - run: brew tap SeekingMeaning/languages
       - run: brew livecheck --newer-only --quiet --tap SeekingMeaning/languages > languages.txt || true
       - run: cat languages.txt
-      - run: echo >> languages.txt
       - uses: actions/upload-artifact@v2
         with:
           name: languages
@@ -108,12 +103,12 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: core
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
-          gist_title: homebrew-core.txt
-          github_file: core.txt
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: https://gist.github.com/SeekerTestBot/26cd541935bd0380a0ac0e996fc56195
+          gist_file_name: homebrew-core.txt
+          file_path: core.txt
 
   gist-cask:
     needs: check-cask
@@ -122,12 +117,12 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: cask
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
-          gist_title: homebrew-cask.txt
-          github_file: cask.txt
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: https://gist.github.com/SeekerTestBot/94b2ada768a1b2c5839667414806d2b0
+          gist_file_name: homebrew-cask.txt
+          file_path: cask.txt
 
   gist-linux:
     needs: check-linux
@@ -136,12 +131,12 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: linux
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
-          gist_title: linuxbrew-core.txt
-          github_file: linux.txt
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: https://gist.github.com/SeekerTestBot/58843cb8fdd4b3a6ef841b066726209a
+          gist_file_name: linuxbrew-core.txt
+          file_path: linux.txt
 
   gist-bio:
     needs: check-bio
@@ -150,12 +145,12 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: bio
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
-          gist_title: brewsci-bio.txt
-          github_file: bio.txt
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: https://gist.github.com/SeekerTestBot/d804d3e7a2895257d47c26abf9ae486a
+          gist_file_name: brewsci-bio.txt
+          file_path: bio.txt
 
   gist-languages:
     needs: check-languages
@@ -164,9 +159,9 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: languages
-      - uses: popsiclestick/gist-sync-action@v1.0.0
+      - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431
-          gist_title: seekingmeaning-languages.txt
-          github_file: languages.txt
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: https://gist.github.com/SeekerTestBot/6f87957bdeecb59238ffd770e3d36431
+          gist_file_name: seekingmeaning-languages.txt
+          file_path: languages.txt
