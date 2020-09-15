@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 brew update-reset
 curl -o $LIVECHECKER_FILE -L https://gist.github.com/SeekerTestBot/$LIVECHECKER_GIST/raw
-brew ruby $LIVECHECKER_PRINT $LIVECHECKER_FILE > $HOME/.brew_livecheck_watchlist
+brew ruby ${LIVECHECKER_PRINT:-"print-formulae.rb"} $LIVECHECKER_FILE > $HOME/.brew_livecheck_watchlist
 if grep -q '[^[:space:]]' "$HOME/.brew_livecheck_watchlist"; then
   if [ ! -z "$LIVECHECKER_TAP" ]; then
     brew tap $LIVECHECKER_TAP
