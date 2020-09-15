@@ -49,6 +49,7 @@ jobs:
       LIVECHECKER_FILE: homebrew-cask.txt
       LIVECHECKER_TAP: SeekingMeaning/cask-livecheck
       LIVECHECKER_COMMAND: cask-livecheck
+      LIVECHECKER_PRINT: print-casks.rb
     steps:
       - uses: actions/checkout@v2
       - run: ./update
