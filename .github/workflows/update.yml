@@ -11,8 +11,6 @@ on:
         default: false
       skip_bio:
         default: false
-      skip_languages:
-        default: false
 
   schedule:
     - cron: '0 10,16,22 * * *'
@@ -87,25 +85,6 @@ jobs:
       LIVECHECKER_GIST: d804d3e7a2895257d47c26abf9ae486a
       LIVECHECKER_FILE: brewsci-bio.txt
       LIVECHECKER_TAP: brewsci/bio
-    steps:
-      - uses: actions/checkout@v2
-      - run: ./update
-      - uses: exuanbo/actions-deploy-gist@v1.0.2
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: ${{ env.LIVECHECKER_GIST }}
-          gist_file_name: ${{ env.LIVECHECKER_FILE }}
-          file_path: ${{ env.LIVECHECKER_FILE }}
-
-  languages:
-    if: ${{ !github.event.inputs.skip_languages }}
-    runs-on: ubuntu-latest
-    container:
-      image: homebrew/ubuntu16.04:master
-    env:
-      LIVECHECKER_GIST: 6f87957bdeecb59238ffd770e3d36431
-      LIVECHECKER_FILE: seekingmeaning-languages.txt
-      LIVECHECKER_TAP: SeekingMeaning/languages
     steps:
       - uses: actions/checkout@v2
       - run: ./update
