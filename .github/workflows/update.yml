@@ -5,8 +5,8 @@ on:
     inputs:
       skip_core:
         default: false
-      skip_cask:
-        default: false
+#       skip_cask:
+#         default: false
       skip_linux:
         default: false
       skip_bio:
@@ -39,24 +39,24 @@ jobs:
           gist_file_name: ${{ env.LIVECHECKER_FILE }}
           file_path: ${{ env.LIVECHECKER_FILE }}
 
-  cask:
-    if: ${{ !github.event.inputs.skip_cask }}
-    runs-on: macos-latest
-    env:
-      LIVECHECKER_GIST: 94b2ada768a1b2c5839667414806d2b0
-      LIVECHECKER_FILE: homebrew-cask.txt
-      LIVECHECKER_TAP: SeekingMeaning/cask-livecheck
-      LIVECHECKER_COMMAND: cask-livecheck
-      LIVECHECKER_PRINT: print-casks.rb
-    steps:
-      - uses: actions/checkout@v2
-      - run: ./update
-      - uses: exuanbo/actions-deploy-gist@v1.0.2
-        with:
-          token: ${{ secrets.GIST_TOKEN }}
-          gist_id: ${{ env.LIVECHECKER_GIST }}
-          gist_file_name: ${{ env.LIVECHECKER_FILE }}
-          file_path: ${{ env.LIVECHECKER_FILE }}
+#   cask:
+#     if: ${{ !github.event.inputs.skip_cask }}
+#     runs-on: macos-latest
+#     env:
+#       LIVECHECKER_GIST: 94b2ada768a1b2c5839667414806d2b0
+#       LIVECHECKER_FILE: homebrew-cask.txt
+#       LIVECHECKER_TAP: SeekingMeaning/cask-livecheck
+#       LIVECHECKER_COMMAND: cask-livecheck
+#       LIVECHECKER_PRINT: print-casks.rb
+#     steps:
+#       - uses: actions/checkout@v2
+#       - run: ./update
+#       - uses: exuanbo/actions-deploy-gist@v1.0.2
+#         with:
+#           token: ${{ secrets.GIST_TOKEN }}
+#           gist_id: ${{ env.LIVECHECKER_GIST }}
+#           gist_file_name: ${{ env.LIVECHECKER_FILE }}
+#           file_path: ${{ env.LIVECHECKER_FILE }}
 
   linux:
     if: ${{ !github.event.inputs.skip_linux }}
