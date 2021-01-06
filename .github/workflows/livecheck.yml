@@ -12,8 +12,8 @@ on:
       skip_bio:
         default: false
 
-#   schedule:
-#     - cron: '0 4 * * *'
+  schedule:
+    - cron: '0 0 * * *'
 
 env:
   HOMEBREW_NO_COLOR: 1
