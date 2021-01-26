@@ -51,8 +51,7 @@ jobs:
     steps:
       - run: brew update-reset
       - run: brew install-bundler-gems
-      - run: brew livecheck --casks --newer-only --quiet --tap $LIVECHECKER_TAP > tmp.txt || true
-      - run: brew ruby "print-casks.rb" tmp.txt > $LIVECHECKER_FILE
+      - run: brew livecheck --casks --newer-only --quiet --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE || true
       - run: cat $LIVECHECKER_FILE
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
