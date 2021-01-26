@@ -5,7 +5,7 @@ if grep -q '[^[:space:]]' "$HOME/.brew_livecheck_watchlist"; then
   if [ ! -z "$LIVECHECKER_TAP" ]; then
     brew tap $LIVECHECKER_TAP
   fi
-  brew ${LIVECHECKER_COMMAND:-livecheck} ${LIVECHECKER_ARGS} --newer-only --quiet > $LIVECHECKER_FILE || true
+  brew ${LIVECHECKER_COMMAND:-livecheck} "--$LIVECHECKER_TYPE" --newer-only --quiet > $LIVECHECKER_FILE || true
 fi
 cat $LIVECHECKER_FILE
 exit 0
