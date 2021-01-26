@@ -29,7 +29,7 @@ jobs:
     env:
       LIVECHECKER_GIST: 26cd541935bd0380a0ac0e996fc56195
       LIVECHECKER_FILE: homebrew-core.txt
-      LIVECHECKER_ARGS: --formulae
+      LIVECHECKER_TYPE: formulae
     steps:
       - uses: actions/checkout@v2
       - run: brew update-reset
@@ -47,7 +47,7 @@ jobs:
     env:
       LIVECHECKER_GIST: 94b2ada768a1b2c5839667414806d2b0
       LIVECHECKER_FILE: homebrew-cask.txt
-      LIVECHECKER_ARGS: --casks
+      LIVECHECKER_TYPE: casks
       LIVECHECKER_PRINT: print-casks.rb
     steps:
       - uses: actions/checkout@v2
@@ -69,7 +69,7 @@ jobs:
     env:
       LIVECHECKER_GIST: 58843cb8fdd4b3a6ef841b066726209a
       LIVECHECKER_FILE: linuxbrew-core.txt
-      LIVECHECKER_ARGS: --formulae
+      LIVECHECKER_TYPE: formulae
     steps:
       - uses: actions/checkout@v2
       - run: brew update-reset
@@ -90,7 +90,7 @@ jobs:
       LIVECHECKER_GIST: d804d3e7a2895257d47c26abf9ae486a
       LIVECHECKER_FILE: brewsci-bio.txt
       LIVECHECKER_TAP: brewsci/bio
-      LIVECHECKER_ARGS: --formulae
+      LIVECHECKER_TYPE: formulae
     steps:
       - uses: actions/checkout@v2
       - run: brew update-reset
