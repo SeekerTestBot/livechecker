@@ -1,4 +1,5 @@
 original_lines = File.read(ARGV.first || "homebrew-cask.txt").lines
+tap = ARGV.second || "homebrew/cask"
 
 original_lines.each do |line|
   m = line.match(/^(.+?) : (.+?) ==> (.+)$/)
@@ -9,5 +10,5 @@ original_lines.each do |line|
   rescue Cask::CaskUnavailableError
     next
   end
-  puts fc_name
+  puts "#{tap}/#{fc_name}"
 end
