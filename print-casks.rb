@@ -10,5 +10,5 @@ original_lines.each do |line|
   rescue Cask::CaskUnavailableError
     next
   end
-  puts "#{tap}/#{fc_name}#{" : #{m[2]} ==> #{m[3]}" if ENV["LIVECHECKER_TAP"]}"
+  puts "#{tap}/#{fc_name}"
 end
