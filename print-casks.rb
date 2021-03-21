@@ -1,3 +1,5 @@
+require "cask"
+
 original_lines = File.read(ARGV.first || "homebrew-cask.txt").lines
 tap = ARGV.second || ENV["LIVECHECKER_TAP"] || "homebrew/cask"
 
