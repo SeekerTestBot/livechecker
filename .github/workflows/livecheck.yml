@@ -32,7 +32,7 @@ jobs:
       LIVECHECKER_GIST: 26cd541935bd0380a0ac0e996fc56195
     steps:
       - run: brew update-reset
-      - run: brew livecheck --formulae --newer-only --quiet --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE || true
+      - run: brew livecheck --formulae --newer-only --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE 2>&1 || true
       - run: cat $LIVECHECKER_FILE
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
@@ -51,7 +51,7 @@ jobs:
     steps:
       - run: brew update-reset
       - run: brew install-bundler-gems
-      - run: brew livecheck --casks --newer-only --quiet --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE || true
+      - run: brew livecheck --casks --newer-only --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE 2>&1 || true
       - run: cat $LIVECHECKER_FILE
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
@@ -73,7 +73,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: brew update-reset
       - run: brew ruby $GITHUB_WORKSPACE/print-linux.rb $LIVECHECKER_TAP > $HOME/.brew_livecheck_watchlist
-      - run: brew livecheck --formulae --newer-only --quiet > $LIVECHECKER_FILE || true
+      - run: brew livecheck --formulae --newer-only --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE 2>&1 || true
       - run: cat $LIVECHECKER_FILE
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
@@ -94,7 +94,7 @@ jobs:
     steps:
       - run: brew update-reset
       - run: brew tap $LIVECHECKER_TAP
-      - run: brew livecheck --formulae --newer-only --quiet --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE || true
+      - run: brew livecheck --formulae --newer-only --tap $LIVECHECKER_TAP > $LIVECHECKER_FILE 2>&1 || true
       - run: cat $LIVECHECKER_FILE
       - uses: exuanbo/actions-deploy-gist@v1.0.2
         with:
